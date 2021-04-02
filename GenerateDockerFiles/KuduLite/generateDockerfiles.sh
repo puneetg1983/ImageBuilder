@@ -19,9 +19,9 @@ declare -r APPSVC_KUDULITE_REPO="$4"
 declare -r CONFIG_DIR="$5"                                         # ${Current_Repo}/Config
 declare -r METADATA_FILE="$SYSTEM_ARTIFACTS_DIR/metadata"
 declare -r APP_SVC_REPO_DIR="$SYSTEM_ARTIFACTS_DIR/$STACK_NAME/GitRepo"
-declare -r APP_SVC_REPO_BRANCH="dev"
+declare -r APP_SVC_REPO_BRANCH="developer/puvasude/reate-base-placegolder"
 declare -r DYN_INST_REPO_DIR="$SYSTEM_ARTIFACTS_DIR/$STACK_NAME/GitRepo-DynInst"
-declare -r DYN_INST_REPO_BRANCH="dev"
+declare -r DYN_INST_REPO_BRANCH="developer/puvasude/reate-base-placegolder"
 
 function generateKuduLiteDockerFiles()
 {
@@ -32,6 +32,9 @@ function generateKuduLiteDockerFiles()
     BASE_IMAGE_NAME="${BASE_IMAGE_REPO_NAME}:$BASE_IMAGE_VERSION_STREAM_FEED"
     CURR_VERSION_DIRECTORY="${APP_SVC_REPO_DIR}/"
     TARGET_DOCKERFILE="${CURR_VERSION_DIRECTORY}/Dockerfile"
+
+    #Rename Dockerfile for main kudu
+    mv ${CURR_VERSION_DIRECTORY}/Dockerfile-Main ${CURR_VERSION_DIRECTORY}/Dockerfile
 
     echo "Generating App Service Dockerfile and dependencies for image '$BASE_IMAGE_NAME' in directory '$CURR_VERSION_DIRECTORY'..."
 
@@ -53,6 +56,9 @@ function generateKuduLiteBusterInstallsDockerFiles()
     BASE_IMAGE_NAME="${BASE_IMAGE_REPO_NAME}:github-actions-buster-$BASE_IMAGE_VERSION_STREAM_FEED"
     CURR_VERSION_DIRECTORY="${DYN_INST_REPO_DIR}/"
     TARGET_DOCKERFILE="${CURR_VERSION_DIRECTORY}/Dockerfile"
+
+    # Rename the buster kudu Dockerfile
+    mv ${CURR_VERSION_DIRECTORY}/Dockerfile-Buster ${CURR_VERSION_DIRECTORY}/Dockerfile
 
     echo "Generating App Service Dockerfile and dependencies for image '$BASE_IMAGE_NAME' in directory '$CURR_VERSION_DIRECTORY'..."
 
